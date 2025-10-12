@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://bigpdf.11zon.com/sitemap.xml
