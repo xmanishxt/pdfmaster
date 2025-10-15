@@ -1,0 +1,140 @@
+/* pdfmaster-styles.css
+   Clean, modern, responsive styles for PDF MASTER (CompressPDF)
+   Instructions: Link this file in your HTML head:
+   <link rel="stylesheet" href="/path/to/pdfmaster-styles.css">
+
+   The CSS below targets common elements found on your page: headings, description, slider, file-drop area, buttons, status messages and icons.
+*/
+:root{
+  --bg:#0f1724; /* deep navy */
+  --card:#0b1220; /* card background */
+  --muted:#94a3b8; /* secondary text */
+  --accent:#06b6d4; /* cyan */
+  --accent-2:#7c3aed; /* violet */
+  --glass: rgba(255,255,255,0.04);
+  --danger:#ef4444;
+  --success:#10b981;
+  --max-width:1000px;
+  --radius:12px;
+  --pad:20px;
+  --shadow: 0 6px 24px rgba(2,6,23,0.6);
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background: linear-gradient(180deg,var(--bg), #071027 80%);
+  color:#e6eef8;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  padding:40px 16px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.container{
+  width:100%;
+  max-width:var(--max-width);
+  background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+  border-radius:var(--radius);
+  padding:calc(var(--pad) * 1.2);
+  box-shadow:var(--shadow);
+  border:1px solid rgba(255,255,255,0.03);
+}
+
+.header{
+  display:flex;
+  gap:16px;
+  align-items:center;
+  margin-bottom:18px;
+}
+.header .logo{
+  width:64px;
+  height:64px;
+  border-radius:10px;
+  background:linear-gradient(135deg,var(--accent), var(--accent-2));
+  display:flex;align-items:center;justify-content:center;font-weight:700;font-size:18px;color:#021025;
+  box-shadow:0 6px 18px rgba(12,30,45,0.6);
+}
+.header h1{margin:0;font-size:22px;letter-spacing:0.6px}
+.header p{margin:0;color:var(--muted);font-size:13px}
+
+.row{display:flex;gap:20px;flex-wrap:wrap}
+.left, .right{flex:1 1 360px}
+
+.card{
+  background:var(--card);
+  border-radius:10px;
+  padding:18px;
+  border:1px solid rgba(255,255,255,0.02);
+}
+
+/* Slider / Compression level */
+.level-wrap{display:flex;align-items:center;gap:12px}
+.level-wrap label{font-size:14px;color:var(--muted);min-width:120px}
+input[type=range]{-webkit-appearance:none;width:100%;height:6px;border-radius:6px;background:linear-gradient(90deg,var(--accent),var(--accent-2));outline:none}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:#fff;box-shadow:0 4px 10px rgba(2,6,23,0.6)}
+
+/* Drop area */
+.drop-area{
+  margin-top:12px;
+  border:2px dashed rgba(255,255,255,0.06);
+  border-radius:8px;
+  padding:28px;text-align:center;
+  background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);
+  transition: all 180ms ease;
+}
+.drop-area.dragover{border-color:rgba(6,182,212,0.6);transform:translateY(-4px)}
+.drop-area p{margin:0;color:var(--muted);font-size:14px}
+.drop-area .btn-select{
+  display:inline-block;margin-top:12px;padding:8px 14px;border-radius:8px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.03);cursor:pointer;font-weight:600
+}
+
+/* Buttons */
+.btn{
+  display:inline-flex;align-items:center;gap:10px;padding:10px 16px;border-radius:10px;font-weight:600;border:none;cursor:pointer;
+}
+.btn-primary{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#021025}
+.btn-outline{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
+
+/* Status messages */
+.status{display:flex;gap:12px;align-items:center;margin-top:12px}
+.status .dot{width:10px;height:10px;border-radius:50%}
+.status.success .dot{background:var(--success)}
+.status.warn .dot{background:var(--accent)}
+.status.err .dot{background:var(--danger)}
+.status span{color:var(--muted);font-size:13px}
+
+/* File list */
+.file-list{margin-top:12px;display:flex;flex-direction:column;gap:8px}
+.file-item{display:flex;align-items:center;justify-content:space-between;padding:10px;border-radius:8px;background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);border:1px solid rgba(255,255,255,0.02)}
+.file-item .meta{display:flex;gap:12px;align-items:center}
+.file-item .meta .name{font-weight:600}
+.file-item .actions{display:flex;gap:8px}
+
+/* Right column: info / faq / tips */
+.info h3{margin:0 0 8px 0}
+.info p{color:var(--muted);font-size:14px;line-height:1.4}
+
+/* Footer */
+.footer{margin-top:18px;text-align:center;color:var(--muted);font-size:13px}
+
+/* Responsiveness */
+@media (max-width:880px){
+  .header{align-items:flex-start}
+  .row{flex-direction:column}
+}
+
+/* Small utility classes */
+.center{display:flex;align-items:center;justify-content:center}
+.hidden{display:none}
+
+/* Accessibility focus */
+button:focus,input[type=range]:focus,.btn-select:focus{outline:3px solid rgba(6,182,212,0.18);outline-offset:2px}
+
+/* Tiny animations */
+@keyframes pop {from{transform:translateY(6px);opacity:0}to{transform:none;opacity:1}}
+.card{animation:pop 220ms ease both}
