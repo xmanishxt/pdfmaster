@@ -354,20 +354,53 @@
         });
 
         // Compress button click handler
-        compressButton.addEventListener('click', () => {
-            // Simulate compression process
-            let width = 0;
+        compressButton.addEventListener('click', async () => {
+            const selectedFile = fileInput.files[0];
+            if (!selectedFile) return;
+
             progressBar.style.display = 'block';
-            const interval = setInterval(() => {
-                if (width >= 100) {
-                    clearInterval(interval);
-                    successMessage.style.display = 'block';
-                    progressBar.style.display = 'none';
-                } else {
-                    width++;
-                    progress.style.width = width + '%';
-                }
-            }, 50);
+            compressButton.disabled = true;
+            let width = 0;
+
+            try {
+                // Simulate compression process
+                const interval = setInterval(() => {
+                    if (width >= 100) {
+                        clearInterval(interval);
+                        successMessage.style.display = 'block';
+                        progressBar.style.display = 'none';
+                    } else {
+                        width++;
+                        progress.style.width = width + '%';
+                    }
+                }, 50);
+
+                // Create a compressed version of the file (simulated)
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const compressedBlob = new Blob([e.target.result], { type: 'application/pdf' });
+                    const downloadUrl = URL.createObjectURL(compressedBlob);
+                    
+                    // Set up download button
+                    const downloadButton = document.getElementById('downloadButton');
+                    downloadButton.onclick = () => {
+                        const link = document.createElement('a');
+                        link.href = downloadUrl;
+                        link.download = 'compressed_' + selectedFile.name;
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                        URL.revokeObjectURL(downloadUrl);
+                    };
+                };
+                reader.readAsArrayBuffer(selectedFile);
+
+            } catch (error) {
+                errorMessage.style.display = 'block';
+                errorMessage.querySelector('p').textContent = 'Error compressing file: ' + error.message;
+            } finally {
+                compressButton.disabled = false;
+            }
         });
     </script>
 </body>
